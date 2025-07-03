@@ -366,6 +366,9 @@
         <bnd.version.policy>[$(version;==;$(@)),$(version;+;$(@)))</bnd.version.policy>
         <!-- Disable OBR repository update by default -->
         <obrRepository>NONE</obrRepository>
+
+	<sonar.organization>the-dna-squad</sonar.organization>
+	<sonar.host.url>https://dev19.sc-dev19.io</sonar.host.url>
     </properties>
 
     <repositories>
