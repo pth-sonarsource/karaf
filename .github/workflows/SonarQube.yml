@@ -36,7 +36,8 @@ jobs:
           SONAR_ARCHITECTURE_EXPORT_GRAPHS: true
           SONAR_ARCHITECTURE_EXPORT_FLAVOR: true
           SONAR_ARCHITECTURE_EXPORT_ISSUES: true
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=the-dna-squad_apache-karaf -Drat.skip=true -DskipTests=true -fae
+        # Using -fn <scream/> so we get the build artifacts even if some tasks have failed (only for a demo :)
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=the-dna-squad_apache-karaf -Drat.skip=true -DskipTests=true -fn
       - name: Store dna xml & json files
         uses: actions/upload-artifact@v4
         with:
