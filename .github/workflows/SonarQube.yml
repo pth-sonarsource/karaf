@@ -37,9 +37,12 @@ jobs:
           SONAR_ARCHITECTURE_EXPORT_FLAVOR: true
           SONAR_ARCHITECTURE_EXPORT_ISSUES: true
         # Using -fn <scream/> so we get the build artifacts even if some tasks have failed (only for a demo :)
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=the-dna-squad_apache-karaf -Drat.skip=true -DskipTests=true -fn
+        run: |
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=the-dna-squad_apache-karaf -Drat.skip=true -DskipTests=true -fn
+          echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+          echo "DATE=$(echo $(date +'%Y-%m-%d'))" >> $GITHUB_ENV
       - name: Store dna xml & json files
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.event.repository.name }}-dna-scan-artifacts
-          path: ./target/sonar/architecture/exports/   
+          name: ${{ env.DATE }}-${{ github.event.repository.name }}-${{ env.SHORT_SHA }}-dna-scan-artifacts
+          path: ./target/sonar/architecture/exports/
